@@ -35,14 +35,7 @@ function Navbar({ usuario, datos }) {
 
             <span className="navbar-brand">Asesorías UTN</span>
 
-            {/* 🔍 BUSCADOR */}
-            <form className="d-none d-md-flex input-group w-auto my-auto">
-              <input
-                type="search"
-                className="form-control rounded"
-                placeholder="Buscar..."
-              />
-            </form>
+            
 
             {/* 👤 INFO USUARIO */}
             <ul className="navbar-nav ms-auto d-flex flex-row">
