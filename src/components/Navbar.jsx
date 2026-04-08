@@ -1,4 +1,5 @@
 import { logoutUser } from "../services/authService";
+import { Link } from "react-router-dom";
 
 function Navbar({ usuario, datos }) {
 
@@ -103,12 +104,16 @@ function Navbar({ usuario, datos }) {
             <ul className="list-group">
 
               {/* 👤 PERFIL */}
-              <li className="list-group-item">Perfil</li>
+              <li className="list-group-item">
+                <Link to="/perfil" className="sidenav-link">
+                Perfil
+                </Link>
+              </li>
 
               {/* 📢 TABLÓN */}
-              {datos?.Rol === "alumno" && (
+              
                 <li className="list-group-item">Tablón de anuncios</li>
-              )}
+              
 
               {/* 📚 ASESORÍAS */}
               {(datos?.Rol === "asesor" || datos?.Rol === "Admin") && (
@@ -117,7 +122,11 @@ function Navbar({ usuario, datos }) {
 
               {/* 👥 USUARIOS */}
               {datos?.Rol === "Admin" && (
-                <li className="list-group-item">Usuarios</li>
+                <li className="list-group-item">
+                <Link to="/usuarios" className="sidenav-link">
+                Usuarios
+                </Link>
+                </li>
               )}
 
             </ul>

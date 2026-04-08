@@ -2,12 +2,13 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-import Login from './views/Login.jsx';
-import Perfil from './views/Perfil.jsx';
+import { BrowserRouter } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
+import AppRouter from "./routes/AppRouter";
 
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "./context/authContext.js";
+import { AuthContext } from "./context/authContext";
 
 // 🔥 SERVICE
 import { getUserData } from "./services/userService";
@@ -19,40 +20,36 @@ function App() {
 
   // 🔥 Estado para datos de Firestore
   const [datos, setDatos] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // 🔄 Traer datos cuando haya usuario
   useEffect(() => {
-
-    const cargarDatos = async () => {
-      if (usuario) {
-        const data = await getUserData(usuario.uid);
-        setDatos(data);
-      } else {
-        setDatos(null);
-      }
-    };
+  const cargarDatos = async () => {
+    if (usuario) {
+      const data = await getUserData(usuario.uid);
+      setDatos(data);
+    } else {
+      setDatos(null);
+    }
+    setLoading(false); // 🔥 termina carga
+  };
 
     cargarDatos();
 
   }, [usuario]);
 
   return (
-    <div>
+    <BrowserRouter> {/* 🔥 AQUÍ ESTÁ EL FIX */}
 
       {/* 🔥 NAVBAR GLOBAL */}
       {usuario && <Navbar usuario={usuario} datos={datos} />}
 
       {/* 🔥 CONTENIDO */}
       <main style={{ marginTop: "50px" }}>
-        
-        {usuario 
-          ? <Perfil usuario={usuario} datos={datos} />
-          : <Login />
-        }
-
+        <AppRouter usuario={usuario} datos={datos} />
       </main>
 
-    </div>
+    </BrowserRouter>
   );
 }
 
