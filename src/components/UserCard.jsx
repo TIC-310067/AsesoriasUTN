@@ -1,6 +1,6 @@
 
 		
-function UserCard({ usuario }) {
+function UserCard({ usuario, onDelete }) {
   return (
     <div className="inbox-message">
       
@@ -33,7 +33,7 @@ function UserCard({ usuario }) {
           </div>
 
           {/* 🗑️ Botón eliminar (visual por ahora) */}
-          <button className="btn btn-sm btn-danger">
+          <button className="btn btn-sm btn-danger"  onClick={() => onDelete(usuario.id)}>
             🗑️
           </button>
 

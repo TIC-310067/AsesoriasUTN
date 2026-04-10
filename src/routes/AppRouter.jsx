@@ -3,6 +3,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../views/Login";
 import Perfil from "../views/Perfil";
 import Usuarios from "../views/Usuarios";
+import ForgotPassword from "../views/ForgotPassword";
+import Asesoria from "../views/Asesoria";
+import CrearAnuncio from "../views/CrearAnuncio";
+import Tablon from "../views/Tablon";
+import Respaldo from "../views/Respaldo";
+
 
 function AppRouter({ usuario, datos, loading }) {
 
@@ -35,6 +41,39 @@ function AppRouter({ usuario, datos, loading }) {
             : <h2 className="text-center mt-5">🚫 Acceso denegado</h2>
         }
       />
+      {/* 📋 REGISTRO ACTIVIDAD (Admin + Asesor) */}
+        <Route
+          path="/Asesoria"
+          element={
+            usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
+              ? <Asesoria />
+              : <h2 className="text-center mt-5">🚫 Acceso denegado</h2>
+          }
+        />
+
+        <Route path="/tablon" element={<Tablon />} />
+
+
+        <Route
+            path="/crear-anuncio"
+            element={
+              usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
+                ? <CrearAnuncio usuario={usuario} datos={datos} />
+                : <Navigate to="/perfil" />
+            }
+          />
+
+          <Route
+              path="/respaldo"
+              element={
+                usuario && datos?.Rol === "Admin"
+                  ? <Respaldo />
+                  : <h2 className="text-center mt-5">🚫 Acceso denegado</h2>
+              }
+            />
+
+      {/* Contraseña Olvida */}
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
     </Routes>
   );

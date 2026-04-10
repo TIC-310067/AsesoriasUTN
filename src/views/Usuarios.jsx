@@ -4,6 +4,9 @@ import UserCard from "../components/UserCard";
 import { registerUser } from "../services/authService";
 import { createUsuario } from "../services/firestoreServices";
 import { serverTimestamp } from "firebase/firestore";
+import { deleteUsuario } from "../services/firestoreServices";
+import { crearLog } from "../services/logService";
+
 
 function Usuarios() {
 
@@ -45,6 +48,30 @@ function Usuarios() {
     user?.Correo?.toLowerCase().includes(busqueda.toLowerCase())
   );
 
+  const handleDelete = async (id) => {
+
+  // ⚠️ CONFIRMACIÓN
+  const confirmacion = window.confirm("¿Seguro que deseas eliminar este usuario?");
+  if (!confirmacion) return;
+
+  try {
+    await deleteUsuario(id);
+    alert("Usuario eliminado 🔥");
+    
+     await crearLog({
+      usuario: "Admin", // luego lo hacemos dinámico
+      accion: "ELIMINAR_USUARIO",
+      descripcion: `Se eliminó  usuario `
+    });
+
+    // 🔄 Actualizar lista sin recargar
+    setUsuarios((prev) => prev.filter(user => user.id !== id));
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al eliminar usuario");
+  }
+};
 
 
 
@@ -128,8 +155,14 @@ const handleSubmit = async (e) => {
 
     // 💾 Guardar en Firestore
     await createUsuario(nuevoUsuario);
+      await crearLog({
+        usuario: "Admin",
+        accion: "CREAR_USUARIO",
+        descripcion: `Se creó el usuario ${nombre}`
+      });
 
     alert("Usuario creado correctamente 🔥");
+
 
     // 🧹 Limpiar form
     setNombre("");
@@ -356,7 +389,7 @@ const handleSubmit = async (e) => {
           // 🔁 Render dinámico de usuarios
           usuariosFiltrados.map((usuario) => (
             <div className="col-md-6 col-lg-4 mb-3" key={usuario.id}>
-              <UserCard usuario={usuario} />
+              <UserCard usuario={usuario} onDelete={handleDelete} />
             </div>
           ))
 

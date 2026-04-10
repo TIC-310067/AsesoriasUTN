@@ -1,7 +1,10 @@
 import { logoutUser } from "../services/authService";
 import { Link } from "react-router-dom";
 
+
+
 function Navbar({ usuario, datos }) {
+  if (!datos) return null;
 
   // 🔓 LOGOUT CON CONFIRMACIÓN
   const handleLogout = async () => {
@@ -112,12 +115,26 @@ function Navbar({ usuario, datos }) {
 
               {/* 📢 TABLÓN */}
               
-                <li className="list-group-item">Tablón de anuncios</li>
+                <li className="list-group-item">
+                  <Link className="sidenav-link" to="/tablon">
+                  Tablón de anuncios</Link></li>
               
 
+                {usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor") && (
+                <li className="list-group-item">
+                  <Link className="sidenav-link" to="/crear-anuncio">
+                    Crear Anuncio
+                  </Link>
+                </li>
+              )}
+
+
               {/* 📚 ASESORÍAS */}
-              {(datos?.Rol === "asesor" || datos?.Rol === "Admin") && (
-                <li className="list-group-item">Asesorías</li>
+              {(datos?.Rol === "Asesor" || datos?.Rol === "Admin") && (
+                <li className="list-group-item">
+                  <Link className="sidenav-link" to="/Asesoria">
+                    Asesorias
+                  </Link></li>
               )}
 
               {/* 👥 USUARIOS */}
@@ -129,6 +146,15 @@ function Navbar({ usuario, datos }) {
                 </li>
               )}
 
+
+              {/* Respaldo */}
+              {datos?.Rol === "Admin" && (
+                <li className="list-group-item">
+                  <Link to="/respaldo" className="sidenav-link">
+                    Respaldo
+                  </Link>
+                </li>
+              )}
             </ul>
 
             <hr />

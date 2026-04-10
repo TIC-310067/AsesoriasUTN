@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { loginUser } from "../services/authService";
 import { useState } from "react";
-
-
+import { useNavigate } from "react-router-dom";
+import { crearLog } from "../services/logService";
 
 
 function Login() {
@@ -10,7 +10,8 @@ function Login() {
     useEffect(() => {
     document.title = "Login"; {/* Determina el Titulo de la Pagina */}
   }, []);
-    
+
+  const navigate = useNavigate();
 
     // 📥 Estados para guardar lo que escribe el usuario
   const [email, setEmail] = useState("");
@@ -24,12 +25,21 @@ function Login() {
     try {
       // 👉 Llama al servicio de login
       await loginUser(email, password);
-
+      await crearLog({
+        usuario: email,
+        accion: "LOGIN_EXITOSO",
+        descripcion: "Inicio de sesión correcto"
+      });
       // 👉 Si funciona, AuthContext detecta el usuario automáticamente
 
     } catch (err) {
       // ❌ Si falla, mostramos error
       setError("Correo o contraseña incorrectos");
+       await crearLog({
+          usuario: email,
+          accion: "LOGIN_FALLIDO",
+          descripcion: "Credenciales incorrectas"
+        });
     }
   };
 
@@ -112,7 +122,13 @@ function Login() {
                       </div>
 
                       {/* Links */}
-                      <a href="#!" className="small text-muted">Olvide mi contraseña</a>
+                      <p
+                            className="small text-muted"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => navigate("/forgot-password")}
+                          >
+                            Olvidé mi contraseña
+                          </p>
 
                     </form>
 
