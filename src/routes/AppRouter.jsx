@@ -6,7 +6,8 @@ import Usuarios from "../views/Usuarios";
 import ForgotPassword from "../views/ForgotPassword";
 import Asesoria from "../views/Asesoria";
 import CrearAnuncio from "../views/CrearAnuncio";
-import Tablon from "../views/Tablon";
+import Formulario from "../views/Formulario";
+import Tablon from "../views/Tablon2";
 import Respaldo from "../views/Respaldo";
 
 
@@ -51,7 +52,22 @@ function AppRouter({ usuario, datos, loading }) {
           }
         />
 
-        <Route path="/tablon" element={<Tablon />} />
+              {/* TABLÓN DE ANUNCIOS*/}
+      <Route 
+        path="/tablon" 
+        element={usuario ? <Tablon usuario={usuario} datos={datos} /> : <Navigate to="/login" />} 
+      />
+
+              {/* FORMULARIO DE ANUNCIOS */}
+      <Route 
+        path="/formulario" 
+        element={usuario ? <Formulario usuario={usuario} datos={datos} /> : <Navigate to="/login" />} 
+      />
+
+        <Route 
+  path="/tablon" 
+  element={<Tablon usuario={usuario} datos={datos} />} 
+/>
 
 
         <Route
