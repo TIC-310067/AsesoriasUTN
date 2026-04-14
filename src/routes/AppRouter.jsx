@@ -7,7 +7,7 @@ import ForgotPassword from "../views/ForgotPassword";
 import Asesoria from "../views/Asesoria";
 import CrearAnuncio from "../views/CrearAnuncio";
 import Formulario from "../views/Formulario";
-import Tablon from "../views/Tablon2";
+import Tablon from "../views/Tablon";
 import Respaldo from "../views/Respaldo";
 
 
