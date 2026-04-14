@@ -124,7 +124,7 @@ AUTORES
 Jose Manuel Rivas Sierra
 Diana Laura Bernal Arias
 Anel Elizabeth Moreno Avalos
-Juanis Eduardo Hernandez Mayorga
+Juansis Eduardo Hernandez Mayorga
 Cesar Andrés Díaz Hernández
 
 
