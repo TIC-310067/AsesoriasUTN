@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { crearAnuncio, actualizarAnuncio, getAnuncioPorId } from '../services/anunciosService';
+import fondo_login from "./Imagenes/background_blur.png"; 
 
 function Formulario({ usuario, datos }) {
   const navigate = useNavigate();
@@ -15,11 +16,9 @@ function Formulario({ usuario, datos }) {
     descripcion: ''
   });
 
-  // Verificar si el usuario es Admin o Asesor, si no, redirigir
-  const esAdminOAsesor = datos?.Rol === "Admin" || datos?.Rol === "asesor";
+  const esAdminOAsesor = datos?.Rol === "Admin" || datos?.Rol === "Asesor";
 
   useEffect(() => {
-    // Si no es Admin ni Asesor, redirigir al tablón
     if (!esAdminOAsesor) {
       navigate('/tablon');
     }
@@ -80,10 +79,8 @@ function Formulario({ usuario, datos }) {
     try {
       if (isEditing && editId) {
         await actualizarAnuncio(editId, formData);
-        console.log("Anuncio actualizado:", editId);
       } else {
         await crearAnuncio(formData, usuario, datos);
-        console.log("Nuevo anuncio creado");
       }
       
       setShowSuccess(true);
@@ -100,12 +97,11 @@ function Formulario({ usuario, datos }) {
     }
   };
 
-  // Si no es Admin/Asesor, mostrar mensaje de carga mientras redirige
   if (!esAdminOAsesor) {
     return (
-      <div className="min-vh-100 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#f1f5f9' }}>
+      <div className="min-vh-100 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#c2f0d5' }}>
         <div className="text-center">
-          <div className="spinner-border text-success" role="status"></div>
+          <div className="spinner-border" role="status" style={{ color: '#10b981' }}></div>
           <p className="mt-2 text-muted">Redirigiendo...</p>
         </div>
       </div>
@@ -113,108 +109,131 @@ function Formulario({ usuario, datos }) {
   }
 
   return (
-    <div className="min-vh-100 d-flex align-items-center justify-content-center p-4" style={{ backgroundColor: '#f1f5f9' }}>
-      <div className="w-100" style={{ maxWidth: '700px' }}>
-        <Link to="/tablon" className="text-decoration-none text-muted small fw-bold mb-3 d-inline-block">
-          <i className="bi bi-arrow-left me-1"></i> VOLVER AL TABLÓN
-        </Link>
+    <>
+      <section 
+        className="vh-100 w-100 position-fixed top-0 start-0" 
+        style={{
+          backgroundImage: `url(${fondo_login})`, 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center',
+          zIndex: -1 
+        }}
+      />
 
-        <div className="card shadow-lg border-0 overflow-hidden" style={{ borderTop: '6px solid #00BF63', borderRadius: '1.5rem' }}>
-          <div className="card-body p-4 p-md-5">
-            <h1 className="h2 fw-bold text-black mb-1">{isEditing ? "Editar Anuncio" : "Nuevo Anuncio"}</h1>
-            <p className="text-muted mb-4">
-              {isEditing 
-                ? "¿Desea modificar algo?" 
-                : "Por favor complete los campos para poder publicar el anuncio en el tablón."}
-            </p>
+      <div className="container min-vh-100 d-flex flex-column justify-content-center align-items-center py-4" style={{ fontFamily: '"Afacad Flux", Helvetica' }}>
+        <div className="row justify-content-center w-100">
+          
 
-            {error && (
-              <div className="alert alert-danger mb-4" role="alert">
-                <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                {error}
-              </div>
-            )}
+          <div className="col-12 col-md-6 col-lg-5">
 
-            {showSuccess && (
-              <div className="alert alert-success mb-4" role="alert">
-                <i className="bi bi-check-circle-fill me-2"></i>
-                ¡Anuncio {isEditing ? "actualizado" : "guardado"} con éxito! Redirigiendo...
-              </div>
-            )}
+            <div className="card shadow-lg border-0 bg-white p-4" style={{ borderRadius: '2rem' }}>
+              <div className="card-body">
 
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label className="form-label fw-bold text-black text-uppercase small tracking-wider">Asunto del Aviso</label>
-                <input 
-                  type="text" 
-                  name="titulo"
-                  value={formData.titulo}
-                  onChange={handleChange}
-                  className="form-control form-control-lg rounded-3"
-                  style={{ backgroundColor: '#f8fafc', borderColor: '#e2e8f0' }}
-                  placeholder="Ej: Examen Extraordinario"
-                  disabled={loading}
-                  required
-                />
-              </div>
+                <Link to="/tablon" className="text-decoration-none text-dark d-inline-flex align-items-center mb-4 fw-medium" style={{ fontSize: '15px' }}>
+                  <span className="me-2" style={{ fontSize: '18px' }}>←</span> Volver al tablón
+                </Link>
 
-              <div className="mb-3">
-                <label className="form-label fw-bold text-black text-uppercase small tracking-wider">Materia / Área</label>
-                <div className="input-group">
-                  <span className="input-group-text bg-light border-end-0 rounded-start-3" style={{ backgroundColor: '#f8fafc' }}>
-                    <i className="bi bi-journal-bookmark text-muted"></i>
-                  </span>
-                  <input 
-                    type="text" 
-                    name="materia"
-                    value={formData.materia}
-                    onChange={handleChange}
-                    className="form-control form-control-lg rounded-end-3"
-                    style={{ backgroundColor: '#f8fafc', borderColor: '#e2e8f0' }}
-                    placeholder="Ej: Administración de Base de Datos"
-                    disabled={loading}
-                    required
-                  />
-                </div>
-              </div>
+                <h2 className="text-center fw-bold text-dark text-uppercase tracking-wide mb-1" style={{ fontSize: '26px' }}>
+                  {isEditing ? "Editar Anuncio" : "Crear un nuevo anuncio"}
+                </h2>
+                <p className="text-center text-secondary mb-4 mx-auto" style={{ fontSize: '14px', maxWidth: '340px', lineHeight: '1.4' }}>
+                  {isEditing 
+                    ? "Modifique los campos correspondientes para actualizar la información en el tablón." 
+                    : "Por favor complete los campos para poder publicar el anuncio en el tablón."}
+                </p>
 
-              <div className="mb-4">
-                <label className="form-label fw-bold text-black text-uppercase small tracking-wider">Descripción Detallada</label>
-                <textarea 
-                  name="descripcion"
-                  value={formData.descripcion}
-                  onChange={handleChange}
-                  className="form-control rounded-3"
-                  style={{ backgroundColor: '#f8fafc', borderColor: '#e2e8f0', minHeight: '150px' }}
-                  placeholder="Escribe aquí los detalles del anuncio..."
-                  disabled={loading}
-                  required
-                ></textarea>
-              </div>
-
-              <button 
-                type="submit" 
-                className="btn w-100 text-white fw-bold py-3 rounded-3 mt-2"
-                style={{ backgroundColor: loading ? '#6c757d' : '#00BF63', border: 'none' }}
-                disabled={loading}
-              >
-                {loading ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                    Procesando envío...
-                  </>
-                ) : (
-                  <>
-                    <i className={`bi ${isEditing ? 'bi-pencil-fill' : 'bi-send-fill'} me-2`}></i>
-                    {isEditing ? "Actualizar Anuncio" : "Publicar Anuncio"}
-                  </>
+                {error && (
+                  <div className="alert alert-danger py-2 rounded-3 text-center mb-3" style={{ fontSize: '14px' }}>
+                    {error}
+                  </div>
                 )}
-              </button>
-            </form>
+
+                {showSuccess && (
+                  <div className="alert alert-success py-2 rounded-3 text-center mb-3" style={{ fontSize: '14px' }}>
+                    ¡Anuncio {isEditing ? "actualizado" : "guardado"} con éxito! Redirigiendo...
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit}>
+
+                  {/* ASUNTO DEL AVISO */}
+                  <div className="mb-3">
+                    <label className="form-label fw-bold text-dark text-uppercase tracking-wider mb-1" style={{ fontSize: '13px' }}>
+                      Asunto del aviso
+                    </label>
+                    <input 
+                      type="text" 
+                      name="titulo"
+                      value={formData.titulo}
+                      onChange={handleChange}
+                      className="form-control border-0 px-3 py-2 rounded-pill"
+                      style={{ backgroundColor: '#c2f0d5', color: '#11676A', fontWeight: '500' }}
+                      placeholder="Ej: Examen extraordinario"
+                      disabled={loading}
+                    />
+                  </div>
+
+                  {/* MATERIA / ÁREA */}
+                  <div className="mb-3">
+                    <label className="form-label fw-bold text-dark text-uppercase tracking-wider mb-1" style={{ fontSize: '13px' }}>
+                      Materia / Área
+                    </label>
+                    <input 
+                      type="text" 
+                      name="materia"
+                      value={formData.materia}
+                      onChange={handleChange}
+                      className="form-control border-0 px-3 py-2 rounded-pill"
+                      style={{ backgroundColor: '#c2f0d5', color: '#11676A', fontWeight: '500' }}
+                      placeholder="Ej: Administración de base de datos"
+                      disabled={loading}
+                    />
+                  </div>
+
+                  {/* DESCRIPCIÓN DETALLADA */}
+                  <div className="mb-4">
+                    <label className="form-label fw-bold text-dark text-uppercase tracking-wider mb-1" style={{ fontSize: '13px' }}>
+                      Descripción detallada
+                    </label>
+                    <textarea 
+                      name="descripcion"
+                      value={formData.descripcion}
+                      onChange={handleChange}
+                      className="form-control border-0 px-3 py-3 rounded-4"
+                      style={{ backgroundColor: '#c2f0d5', color: '#11676A', fontWeight: '500', resize: 'none', minHeight: '130px' }}
+                      placeholder="Escriba aquí los detalles del anuncio"
+                      disabled={loading}
+                    ></textarea>
+                  </div>
+
+                  {/* BOTÓN SUBMIT */}
+                  <div className="d-grid pt-2">
+                    <button 
+                      type="submit" 
+                      className="btn text-white fw-semibold rounded-pill border-0 py-2"
+                      style={{ backgroundColor: loading ? '#6c757d' : '#00b96b', fontSize: '16px', letterSpacing: '0.5px' }}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                          Procesando...
+                        </>
+                      ) : (
+                        isEditing ? "Actualizar Anuncio" : "Publicar Anuncio"
+                      )}
+                    </button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
