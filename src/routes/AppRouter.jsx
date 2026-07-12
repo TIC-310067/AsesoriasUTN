@@ -4,6 +4,7 @@ import Login from "../views/Login";
 import Perfil from "../views/Perfil";
 import Usuarios from "../views/Usuarios";
 import ForgotPassword from "../views/ForgotPassword";
+import Asesoria from "../views/Asesoria";
 import CrearAsesoria from "../views/CrearAsesoria";
 import Formulario from "../views/Formulario";
 import Tablon from "../views/Tablon";
