@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import fondo_login from "./Imagenes/background_blur.png";
 import logoGobierno from "./Imagenes/logo-gobierno.png";
 
-function Logincopy() {
+function Login() {
 
   useEffect(() => {
     document.title = "Login | Asesorías UTN";
@@ -232,4 +232,4 @@ function Logincopy() {
   );
 }
 
-export default Logincopy;
+export default Login;
