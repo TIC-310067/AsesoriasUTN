@@ -73,7 +73,7 @@ function AppRouter({ usuario, datos, loading }) {
             path="/crear-anuncio"
             element={
               usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
-                ? <CrearAnuncio usuario={usuario} datos={datos} />
+                ? <CrearAsesoria usuario={usuario} datos={datos} />
                 : <Navigate to="/perfil" />
             }
           />
