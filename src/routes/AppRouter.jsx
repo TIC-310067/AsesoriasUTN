@@ -71,7 +71,7 @@ function AppRouter({ usuario, datos, loading }) {
 
 
         <Route
-            path="/crear-anuncio"
+            path="/crear-asesoria"
             element={
               usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
                 ? <CrearAsesoria usuario={usuario} datos={datos} />
