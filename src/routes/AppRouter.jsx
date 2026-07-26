@@ -9,6 +9,12 @@ import CrearAsesoria from "../views/CrearAsesoria";
 import Formulario from "../views/Formulario";
 import Tablon from "../views/Tablon";
 import Respaldo from "../views/Respaldo";
+import AnalysisHome from "../views/AnalysisHome";
+import ImportExcel from "../views/ImportExcel";
+import CreateReport from "../views/CreateReport";
+import Alumnos from "../views/Alumnos";
+import AlumnoDetalle from "../views/AlumnoDetalle";
+import AlumnoFormulario from "../views/AlumnoFormulario"; 
 
 
 function AppRouter({ usuario, datos, loading }) {
@@ -52,7 +58,7 @@ function AppRouter({ usuario, datos, loading }) {
           }
         />
 
-              {/* TABLÓN DE ANUNCIOS*/}
+       {/* TABLÓN DE ANUNCIOS*/}
       <Route 
         path="/tablon" 
         element={usuario ? <Tablon usuario={usuario} datos={datos} /> : <Navigate to="/login" />} 
@@ -63,11 +69,6 @@ function AppRouter({ usuario, datos, loading }) {
         path="/formulario" 
         element={usuario ? <Formulario usuario={usuario} datos={datos} /> : <Navigate to="/login" />} 
       />
-
-        <Route 
-  path="/tablon" 
-  element={<Tablon usuario={usuario} datos={datos} />} 
-/>
 
 
         <Route
@@ -87,6 +88,56 @@ function AppRouter({ usuario, datos, loading }) {
                   : <h2 className="text-center mt-5">🚫 Acceso denegado</h2>
               }
             />
+
+            <Route
+          path="/analysis"
+          element={
+            usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
+              ? <AnalysisHome />
+              : <h2 className="text-center mt-5">🚫 Acceso denegado</h2> }
+        />
+
+        <Route
+          path="/analysis/import"
+          element={
+            usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
+              ? <ImportExcel />
+              : <h2 className="text-center mt-5">🚫 Acceso denegado</h2>
+          }
+        />
+
+        <Route
+          path="/analysis/create"
+          element={
+            usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
+              ? <CreateReport />
+              : <h2 className="text-center mt-5">🚫 Acceso denegado</h2>
+          }
+        />
+
+        <Route
+          path="/alumnos"
+          element={
+            usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
+              ? <Alumnos />
+              : <Navigate to="/perfil" />
+          }
+        />
+
+        <Route path="/alumnos/nuevo" element={
+          usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor") 
+            ? <AlumnoFormulario usuario={usuario} datos={datos} /> 
+            : <Navigate to="/perfil" />
+        } />
+
+        <Route
+          path="/alumnos/:id"
+          element={
+            usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
+              ? <AlumnoDetalle />
+              : <Navigate to="/perfil" />
+          }
+        />
 
       {/* Contraseña Olvida */}
       <Route path="/forgot-password" element={<ForgotPassword />} />
