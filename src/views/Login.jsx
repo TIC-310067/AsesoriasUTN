@@ -55,13 +55,14 @@ function Login() {
             <h1 className="display-3 fw-bold mb-3" style={{ 
               fontFamily: "'Jaro Local', Helvetica", 
               letterSpacing: '5px',
-              fontSize: '85px', /* Ajustado para que combine con la escala de la imagen */
+              fontSize: '85px',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
             }}>
               ¡BIENVENIDO!
             </h1>
             
             <p className="lead" style={{ 
-              fontSize: '24px', /* Reducido levemente para ajustarse a las dos líneas del diseño */
+              fontSize: '24px', 
               fontFamily: '"Afacad Flux", Helvetica',
               letterSpacing: '0',
               lineHeight: '1.2',
