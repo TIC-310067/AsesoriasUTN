@@ -86,86 +86,71 @@ function Navbar({ usuario, datos }) {
           </div>
         </nav>
 
-        {/* 🔥 MENÚ LATERAL (OFFCANVAS REAL) */}
-        <div
-          className="offcanvas offcanvas-start"
-          tabIndex="-1"
-          id="menuLateral"
-        >
+{/* 🔥 MENÚ LATERAL (OFFCANVAS REAL) */} 
+<div className="offcanvas offcanvas-start" tabIndex="-1" id="menuLateral"> 
+  <div className="offcanvas-header"> 
+    <h5 className="offcanvas-title">Menú</h5> 
+    <button type="button" className="btn-close" data-bs-dismiss="offcanvas"></button> 
+  </div> 
+  <div className="offcanvas-body"> 
+    <ul className="list-group"> 
+      {/* 👤 PERFIL */} 
+      <li className="list-group-item"> 
+        <Link to="/perfil" className="sidenav-link"> Perfil </Link> 
+      </li> 
+      
+      {/* 📢 TABLÓN */} 
+      <li className="list-group-item"> 
+        <Link className="sidenav-link" to="/tablon"> Tablón de anuncios</Link>
+      </li>
 
-          <div className="offcanvas-header">
-            <h5 className="offcanvas-title">Menú</h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="offcanvas"
-            ></button>
-          </div>
+      {/* 📝 CREAR ASESORÍA (Admin + Asesor) */}
+      {usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor") && ( 
+        <li className="list-group-item"> 
+          <Link className="sidenav-link" to="/crear-asesoria"> Crear Asesoria </Link> 
+        </li> 
+      )} 
 
-          <div className="offcanvas-body">
+      {/* 👥 USUARIOS (Solo Admin) */} 
+      {datos?.Rol === "Admin" && ( 
+        <li className="list-group-item"> 
+          <Link to="/usuarios" className="sidenav-link"> Usuarios </Link> 
+        </li> 
+      )} 
 
-            <ul className="list-group">
+      {/* 💾 RESPALDO (Solo Admin) */} 
+      {datos?.Rol === "Admin" && ( 
+        <li className="list-group-item"> 
+          <Link to="/respaldo" className="sidenav-link"> Respaldo </Link> 
+        </li> 
+      )} 
 
-              {/* 👤 PERFIL */}
-              <li className="list-group-item">
-                <Link to="/perfil" className="sidenav-link">
-                Perfil
-                </Link>
-              </li>
+      {/* 📊 ANÁLISIS (Solo Admin) */} 
+      {datos?.Rol === "Admin" && ( 
+        <li className="list-group-item"> 
+          <Link to="/analysis" className="sidenav-link"> Reportes y análisis </Link> 
+        </li> 
+      )} 
 
-              {/* 📢 TABLÓN */}
-              
-                <li className="list-group-item">
-                  <Link className="sidenav-link" to="/tablon">
-                  Tablón de anuncios</Link></li>
-              
+      {/* 👨‍🎓 GESTIÓN DE ALUMNOS (Solo Admin) */} 
+      {datos?.Rol === "Admin" && ( 
+        <li className="list-group-item"> 
+          <Link to="/alumnos" className="sidenav-link"> Gestión de Asesorados </Link> 
+        </li> 
+      )} 
+    </ul> 
 
-                {usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor") && (
-                <li className="list-group-item">
-                  <Link className="sidenav-link" to="/crear-asesoria">
-                    Crear Asesoria
-                  </Link>
-                </li>
-              )}
+    <hr /> 
 
-
-              {/* 👥 USUARIOS */}
-              {datos?.Rol === "Admin" && (
-                <li className="list-group-item">
-                <Link to="/usuarios" className="sidenav-link">
-                Usuarios
-                </Link>
-                </li>
-              )}
-
-
-              {/* Respaldo */}
-              {datos?.Rol === "Admin" && (
-                <li className="list-group-item">
-                  <Link to="/respaldo" className="sidenav-link">
-                    Respaldo
-                  </Link>
-                </li>
-              )}
-            </ul>
-
-            <hr />
-
-            {/* 🔴 LOGOUT */}
-            <button
-              className="btn btn-danger w-100"
-              onClick={handleLogout}
-            >
-              Cerrar sesión
-            </button>
-
-          </div>
-
-        </div>
-
-      </header>
-    </div>
-  );
-}
-
+    {/* 🔴 LOGOUT */} 
+    <button className="btn btn-danger w-100" onClick={handleLogout}> 
+      Cerrar sesión 
+    </button> 
+  </div> 
+</div> 
+</header> 
+</div>
+); 
+} 
 export default Navbar;
+
