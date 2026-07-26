@@ -1,4 +1,4 @@
-import { obtenerAsesorias } from "../services/asesoriaService";
+import { obtenerAsesorias } from "./AsesoriaService";
 
 export const descargarBackup = async () => {
   const datos = await obtenerAsesorias();
