@@ -4,7 +4,6 @@ import Login from "../views/Login";
 import Perfil from "../views/Perfil";
 import Usuarios from "../views/Usuarios";
 import ForgotPassword from "../views/ForgotPassword";
-import Asesoria from "../views/Asesoria";
 import CrearAsesoria from "../views/CrearAsesoria";
 import Formulario from "../views/Formulario";
 import Tablon from "../views/Tablon";
@@ -48,15 +47,6 @@ function AppRouter({ usuario, datos, loading }) {
             : <h2 className="text-center mt-5">🚫 Acceso denegado</h2>
         }
       />
-      {/* 📋 REGISTRO ACTIVIDAD (Admin + Asesor) */}
-        <Route
-          path="/Asesoria"
-          element={
-            usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor")
-              ? <Asesoria />
-              : <h2 className="text-center mt-5">🚫 Acceso denegado</h2>
-          }
-        />
 
        {/* TABLÓN DE ANUNCIOS*/}
       <Route 
