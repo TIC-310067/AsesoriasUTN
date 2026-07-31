@@ -104,13 +104,6 @@ function Navbar({ usuario, datos }) {
         <Link className="sidenav-link" to="/tablon"> Tablón de anuncios</Link>
       </li>
 
-      {/* 📝 CREAR ASESORÍA (Admin + Asesor) */}
-      {usuario && (datos?.Rol === "Admin" || datos?.Rol === "Asesor") && ( 
-        <li className="list-group-item"> 
-          <Link className="sidenav-link" to="/crear-asesoria"> Crear Asesoria </Link> 
-        </li> 
-      )} 
-
       {/* 👥 USUARIOS (Solo Admin) */} 
       {datos?.Rol === "Admin" && ( 
         <li className="list-group-item"> 
