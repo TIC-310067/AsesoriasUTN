@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAnuncios, eliminarAnuncio } from '../services/anunciosService';
+import { getAnuncios, eliminarAnuncio } from '../services/AnunciosService';
 import { Link, useNavigate } from "react-router-dom";
 import Reloj from '../routes/Reloj';
 
