@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { crearAnuncio, actualizarAnuncio, getAnuncioPorId } from '../services/anunciosService';
+import { crearAnuncio, actualizarAnuncio, getAnuncioPorId } from '../services/AnunciosService';
 import fondo_login from "./Imagenes/background_blur.png"; 
 
 function Formulario({ usuario, datos }) {
