@@ -5,7 +5,7 @@ import Reloj from '../routes/Reloj';
 
 const Tablon = ({ usuario, datos }) => {
   const navigate = useNavigate();
-  const [anuncios, setAnuncios] = useState([]);
+  const [Anuncios, setAnuncios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eliminando, setEliminando] = useState(null);
 
@@ -18,8 +18,8 @@ const Tablon = ({ usuario, datos }) => {
   const cargarAnuncios = async () => {
     setLoading(true);
     try {
-      const anunciosGuardados = await getAnuncios();
-      setAnuncios(anunciosGuardados);
+      const AnunciosGuardados = await getAnuncios();
+      setAnuncios(AnunciosGuardados);
     } catch (error) {
       console.error("Error al cargar anuncios:", error);
     } finally {
@@ -101,13 +101,13 @@ const Tablon = ({ usuario, datos }) => {
                     </div>
                     <p className="mt-2 text-muted">Cargando anuncios...</p>
                   </div>
-                ) : anuncios.length === 0 ? (
+                ) : Anuncios.length === 0 ? (
                   <div className="text-center py-5 text-muted">
                     <p className="mt-2">Por el momento no hay anuncios</p>
                   </div>
                 ) : (
                   <div className="d-flex flex-column gap-3">
-                    {anuncios.map((anuncio) => (
+                    {Anuncios.map((anuncio) => (
                       <div 
                         key={anuncio.id} 
                         className="p-4 rounded-3 bg-white border shadow-sm"
