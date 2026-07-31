@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable"; 
 import { obtenerAsesorias } from "./AsesoriaService";
-import { getAnuncios } from "./anunciosService";
+import { getAnuncios } from "./AnunciosService";
 import { getUsuarios } from "./firestoreServices";
 
 // ========== CONFIGURACIÓN GENERAL ==========
